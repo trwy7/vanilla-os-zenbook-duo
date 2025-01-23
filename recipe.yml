@@ -45,8 +45,7 @@ stages:
   - name: asus-wmi-screenpad
     type: shell
     commands:
-    - apt install dkms -y
-    - apt install linux-headers-$(uname -r) -y
+    - apt install dkms -y # Should already be installed, just making sure.
     - mkdir /usr/src/asus-wmi-1.0
     - cd /usr/src/asus-wmi-1.0
     - wget 'https://github.com/Plippo/asus-wmi-screenpad/archive/master.zip'
@@ -54,10 +53,12 @@ stages:
     - mv asus-wmi-screenpad-master/* .
     - rmdir asus-wmi-screenpad-master
     - rm master.zip
+    - sed -i "2s/.*/VERSION=`cat /usr/share/vanilla/kernel-version | grep -o '^[0-9]\+\.[0-9]\+'`/" file.txt # Make sure it wont prepare the wrong kernel
     - sh prepare-for-current-kernel.sh
-    - dkms add -m asus-wmi -v 1.0
-    - dkms build -m asus-wmi -v 1.0
-    - dkms install -m asus-wmi -v 1.0
+    - echo Using kernel -k $(cat /usr/share/vanilla/kernel-version)
+    - dkms add -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
+    - dkms build -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
+    - dkms install -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
     - chmod a+w '/sys/class/leds/asus::screenpad/brightness'
   
   # Put your custom actions above this comment
