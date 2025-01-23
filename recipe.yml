@@ -59,7 +59,7 @@ stages:
     - dkms add -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
     - dkms build -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
     - dkms install -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
-    - chmod a+w '/sys/class/leds/asus::screenpad/brightness'
+    # - chmod a+w '/sys/class/leds/asus::screenpad/brightness' This breaks, dont use it
   
   # Put your custom actions above this comment
 
