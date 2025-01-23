@@ -37,7 +37,7 @@ stages:
     - apt-get update
     - apt-get install tailscale -y
   
-  - name: change bgrt # Sample module demonstrating the Shell module with custom commands
+  - name: change bgrt # Changes the plymouth theme to bgrt, mostly personal preference
     type: shell
     commands:
     - plymouth-set-default-theme -R bgrt
