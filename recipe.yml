@@ -35,12 +35,30 @@ stages:
     - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
     - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
     - apt-get update
-    - apt-get install tailscale
+    - apt-get install tailscale -y
   
   - name: change bgrt # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
     - plymouth-set-default-theme -R bgrt
+
+  - name: asus-wmi-screenpad
+    type: shell
+    commands:
+    - apt install dkms -y
+    - apt install linux-headers-$(uname -r) -y
+    - mkdir /usr/src/asus-wmi-1.0
+    - cd /usr/src/asus-wmi-1.0
+    - wget 'https://github.com/Plippo/asus-wmi-screenpad/archive/master.zip'
+    - unzip master.zip
+    - mv asus-wmi-screenpad-master/* .
+    - rmdir asus-wmi-screenpad-master
+    - rm master.zip
+    - sh prepare-for-current-kernel.sh
+    - dkms add -m asus-wmi -v 1.0
+    - dkms build -m asus-wmi -v 1.0
+    - dkms install -m asus-wmi -v 1.0
+    - chmod a+w '/sys/class/leds/asus::screenpad/brightness'
   
   # Put your custom actions above this comment
 
