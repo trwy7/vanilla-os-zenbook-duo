@@ -53,7 +53,7 @@ stages:
     - mv asus-wmi-screenpad-master/* .
     - rmdir asus-wmi-screenpad-master
     - rm master.zip
-    - sed -i "2s/.*/VERSION=`cat /usr/share/vanilla/kernel-version | grep -o '^[0-9]\+\.[0-9]\+'`/" file.txt # Make sure it wont prepare the wrong kernel
+    - sed -i "2s/.*/VERSION=`cat /usr/share/vanilla/kernel-version | grep -o '^[0-9]\+\.[0-9]\+'`/" prepare-for-current-kernel.sh # Make sure it wont prepare the wrong kernel
     - sh prepare-for-current-kernel.sh
     - echo Using kernel -k $(cat /usr/share/vanilla/kernel-version)
     - dkms add -m asus-wmi -v 1.0 -k $(cat /usr/share/vanilla/kernel-version)
