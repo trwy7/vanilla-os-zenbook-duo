@@ -64,9 +64,10 @@ stages:
   - name: zenbook-duo-2024-tools
     type: shell
     commands:
-    - apt install python3 python3-usb -y # Dependancies for keyboard light
+    - apt install python3 python3-usb iio-sensor-proxy gnome-monitor-config usbutils inotify-tools -y # Dependancies
     - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/refs/heads/main/duo -o /usr/bin/duo
     - chmod a+rx /usr/bin/duo
+    - systemctl enable duo-bat-limit.service # Limits the battery to 80%
 
 
   # Put your custom actions above this comment

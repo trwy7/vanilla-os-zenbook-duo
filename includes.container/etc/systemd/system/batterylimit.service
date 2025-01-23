@@ -1,0 +1,8 @@
+[Unit]
+Description=Duo Battery Limit Service
+
+[Service]
+ExecStart=/usr/bin/duo bat-limit
+
+[Install]
+WantedBy=multi-user.target
