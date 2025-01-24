@@ -62,7 +62,7 @@ stages:
   - name: gnome-monitor-config
     type: shell
     commands:
-    - apt-get install meson -y
+    - apt-get install meson pkg-config -y
     - mkdir /tmp/gnome-monitor-config
     - cd /tmp/gnome-monitor-config
     - wget 'https://github.com/jadahl/gnome-monitor-config/archive/master.zip'
