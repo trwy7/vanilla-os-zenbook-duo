@@ -97,7 +97,7 @@ stages:
     # - rm master.zip
     # - meson setup build
     # - meson compile -C build
-    - apt-get install software-properties-common
+    - apt-get install software-properties-common -y
     - add-apt-repository ppa:boltgolt/howdy
     - apt update
     - DEBIAN_FRONTEND=noninteractive apt install howdy
