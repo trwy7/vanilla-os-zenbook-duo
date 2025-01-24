@@ -30,10 +30,10 @@ stages:
   #     - vim
 
 
-  - name: install tailscale # Sample module demonstrating the Shell module with custom commands
+  - name: enable tailscale # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands: # This needs https://pkgs.tailscale.com/stable/tailscale_1.78.1_amd64.tgz to be extracted to /home/tailscale/tailscalebin and the files are executable
-    - 
+    - systemctl enable tailscale.service
   
   - name: change bgrt # Changes the plymouth theme to bgrt, mostly personal preference
     type: shell
