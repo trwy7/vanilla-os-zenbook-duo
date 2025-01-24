@@ -29,13 +29,11 @@ stages:
   #     packages:
   #     - vim
 
+
   - name: install tailscale # Sample module demonstrating the Shell module with custom commands
     type: shell
-    commands:
-    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
-    - apt-get update
-    - apt-get install tailscale -y
+    commands: # This needs https://pkgs.tailscale.com/stable/tailscale_1.78.1_amd64.tgz to be extracted to /home/tailscale/tailscalebin and the files are executable
+    - 
   
   - name: change bgrt # Changes the plymouth theme to bgrt, mostly personal preference
     type: shell
