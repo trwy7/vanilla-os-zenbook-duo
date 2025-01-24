@@ -5,7 +5,7 @@ Wants=network-pre.target
 After=network-pre.target NetworkManager.service systemd-resolved.service
 
 [Service]
-ExecStart=/home/tailscale/tailscalebin/tailscaled --state=/home/tailscale/tailscaled.state --socket=/home/tailscale/tailscaled.sock --port=41641
+ExecStart=/home/tailscale/tailscalebin/tailscaled --state=/home/tailscale/tailscaled.state --port=41641
 ExecStopPost=/home/tailscale/tailscalebin/tailscaled --cleanup
 
 Restart=on-failure
