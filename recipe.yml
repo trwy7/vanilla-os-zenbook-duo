@@ -87,7 +87,7 @@ stages:
   - name: howdy
     type: shell
     commands:
-    - DEBIAN_FRONTEND=noninteractive apt install /tmp/howdy_2.6.1.deb -y
+    - DEBIAN_FRONTEND=noninteractive apt-get install -f /tmp/howdy_2.6.1.deb -y
 
   # Put your custom actions above this comment
 
