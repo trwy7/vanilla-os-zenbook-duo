@@ -62,8 +62,10 @@ stages:
   - name: gnome-monitor-config
     type: shell
     commands:
-    - git clone https://github.com/jadahl/gnome-monitor-config.git /tmp/gnome-monitor-config
+    - mkdir /tmp/gnome-monitor-config
     - cd /tmp/gnome-monitor-config
+    - wget 'https://github.com/jadahl/gnome-monitor-config/archive/master.zip'
+    - unzip master.zip
     - meson build
     - cd build
     - meson compile
