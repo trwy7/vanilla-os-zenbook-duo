@@ -99,8 +99,10 @@ stages:
     # - meson compile -C build
     - apt-get install software-properties-common -y
     - add-apt-repository ppa:boltgolt/howdy
+    - sed -i 's/vanilla\/orchid/debian/' /etc/apt/sources.list
     - apt update
     - DEBIAN_FRONTEND=noninteractive apt install howdy
+    - sed -i 's/debian/vanilla\/orchid/' /etc/apt/sources.list
 
   # Put your custom actions above this comment
 
