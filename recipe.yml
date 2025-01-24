@@ -67,6 +67,9 @@ stages:
     - cd /tmp/gnome-monitor-config
     - wget 'https://github.com/jadahl/gnome-monitor-config/archive/master.zip'
     - unzip master.zip
+    - mv gnome-monitor-config-master/* .
+    - rmdir gnome-monitor-config-master
+    - rm master.zip
     - meson build
     - cd build
     - meson compile
