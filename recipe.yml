@@ -102,8 +102,9 @@ stages:
     - meson setup build
     - meson compile -C build
     - meson install -C build
-    - mv /usr/local/etc/howdy /etc/howdy
-    - ln -s /etc/howdy /usr/local/etc/howdy
+    - cp /etc/howdy/pam.d/howdy /etc/pam.d/
+    - mv /usr/local/etc/howdy /etc/howdydata
+    - ln -s /etc/howdy /usr/local/etc/howdydata
 
   # Put your custom actions above this comment
 
