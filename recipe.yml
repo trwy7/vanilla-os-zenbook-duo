@@ -93,7 +93,7 @@ stages:
     - git clone https://github.com/boltgolt/howdy /tmp/howdy
     - cd /tmp/howdy
     - apt install -y python3 python3-pip python3-numpy python3-setuptools python3-wheel cmake make build-essential libpam0g-dev libinih-dev libevdev-dev python3-dev
-    - pip3 install opencv-python --break-system-packages
+    - pip3 install opencv-python dlib --break-system-packages
     - meson setup build
     - meson compile -C build
     - meson install -C build
