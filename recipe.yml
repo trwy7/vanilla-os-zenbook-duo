@@ -97,8 +97,8 @@ stages:
     - meson setup build
     - meson compile -C build
     - meson install -C build
-    - mkdir -p /etc/howdy
-    - ln -s /usr/local/etc/howdy /etc/howdy
+    - cp -r /usr/local/etc/howdy /etc/howdy
+    - ln -s /etc/howdy /usr/local/etc/howdy
 
   # Put your custom actions above this comment
 
