@@ -85,7 +85,6 @@ stages:
     - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/refs/heads/main/duo -o /usr/bin/duo
     - chmod a+rx /usr/bin/duo
     - systemctl enable batterylimit.service # Limits the battery to 80%
-    - dconf write /org/gnome/mutter/experimental-features "['scale-monitor-framebuffer']"
 
   - name: howdy
     type: shell
