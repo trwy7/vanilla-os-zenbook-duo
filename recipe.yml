@@ -114,8 +114,8 @@ stages:
     - mkdir -p /lib/security/howdy/
     - cp -r /tmp/howdy/build/howdy/src/* /lib/security/howdy/
     - mv /usr/local/etc/howdy /etc/howdydata
-    - ln -s /etc/howdy /usr/local/etc/howdydata
-    - echo "auth sufficient pam_python.so /lib/security/howdy/pam/pam.py" >> /etc/pam.d/common-auth
+    - ln -s /etc/howdy /usr/local/etc/howdy
+    - echo "auth sufficient /lib/security/howdy/pam/pam_howdy.so" >> /etc/pam.d/common-auth
 
   # Put your custom actions above this comment
 
