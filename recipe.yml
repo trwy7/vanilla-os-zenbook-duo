@@ -86,6 +86,13 @@ stages:
     - chmod a+rx /usr/bin/duo
     - systemctl enable batterylimit.service # Limits the battery to 80%
 
+  - name: asus-pen-2
+    type: shell
+    commands:
+    - git clone https://github.com/asus-linux-drivers/asus-stylus-driver /tmp/asus-stylus-driver
+    - cd /tmp/asus-stylus-driver
+    - ./install.sh
+
   - name: howdy
     type: shell
     commands:
