@@ -92,6 +92,8 @@ stages:
     - apt install git -y
     - git clone https://github.com/asus-linux-drivers/asus-stylus-driver /tmp/asus-stylus-driver
     - cd /tmp/asus-stylus-driver
+    - sed -i 's/systemctl daemon-reload/echo not reloading/' install.sh
+    - sed -i 's/systemctl restart asus-stylus/echo not reloading/' install.sh
     - ./install.sh
 
   - name: howdy
