@@ -1,5 +1,6 @@
 [Unit]
 Description=Zenbook Duo Rotation service
+After=gdm.service
 
 [Service]
 ExecStart=/bin/bash /usr/bin/monitorrotation

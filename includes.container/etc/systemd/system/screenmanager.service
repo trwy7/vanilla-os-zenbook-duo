@@ -1,5 +1,6 @@
 [Unit]
 Description=Zenbook Duo Monitor service
+After=gdm.service
 
 [Service]
 ExecStart=/bin/bash /usr/bin/duomonitor
