@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+# Runs at startup to monitor screen rotation
+# Set /etc/duoconfig/rotation to 1 to enable rotation and 0 to disable
+
+# Check if running as root
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+# Check if /etc/duoconfig/rotation exists
+if [ ! -f /etc/duoconfig/rotation ]; then
+  echo "0" > /etc/duoconfig/rotation
+fi
+
+# Check if /etc/duoconfig/rotation is set to 1
+if [ $(cat /etc/duoconfig/rotation) -eq 1 ]; then
+  duo watch-rotation
+fi

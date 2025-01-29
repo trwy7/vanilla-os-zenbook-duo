@@ -1,0 +1,8 @@
+[Unit]
+Description=Zenbook Duo Monitor service
+
+[Service]
+ExecStart=/bin/bash /usr/bin/duomonitor
+
+[Install]
+WantedBy=multi-user.target

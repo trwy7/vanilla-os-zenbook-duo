@@ -1,0 +1,8 @@
+[Unit]
+Description=Zenbook Duo Rotation service
+
+[Service]
+ExecStart=/bin/bash /usr/bin/monitorrotation
+
+[Install]
+WantedBy=multi-user.target

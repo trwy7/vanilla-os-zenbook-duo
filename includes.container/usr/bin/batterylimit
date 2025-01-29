@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+# Runs at startup to set a battery limit
+# Create a file at /etc/duoconfig/batterylimit with the desired battery limit
+
+# Check if running as root
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit
+fi
+
+# Check if the file exists
+if [ -f /etc/duoconfig/batterylimit ]; then
+    # Read the file
+    limit=$(cat /etc/duoconfig/batterylimit)
+    # Set the battery limit
+    duo bat-limit $limit
+fi
