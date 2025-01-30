@@ -32,7 +32,7 @@ Name[fi]=Spinneri
 Name[ie]=Volante
 Name[gl]=Spinner
 Name[cy]=Troellydd
-Name=trey-spinner
+Name=treyspinner
 Description=Treys custom spinner theme
 ModuleName=two-step
 
