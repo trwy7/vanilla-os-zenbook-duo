@@ -56,6 +56,7 @@ ProgressBarBackgroundColor=0x606060
 ProgressBarForegroundColor=0xffffff
 DialogClearsFirmwareBackground=false
 MessageBelowAnimation=true
+ThrobberFrameInterval=0.2
 
 [boot-up]
 UseEndAnimation=false
