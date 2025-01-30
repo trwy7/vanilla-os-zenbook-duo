@@ -1,3 +1,4 @@
+set -e
 echo Installing Tailscale
 host-shell pkexec mkdir -p /home/vosapps/tailscalebin
 host-shell pkexec chown -R $USER:$USER /home/vosapps
@@ -11,7 +12,12 @@ host-shell pkexec ./tailscale up
 echo "export PATH=$PATH:/home/vosapps/tailscalebin" >> ~/.profileo
 echo Setting monitor settings
 host-shell dconf write /org/gnome/mutter/experimental-features "['scale-monitor-framebuffer']"
-sleep 2
-host-shell duo top
+echo Your display may flicker
+duo both
 sleep 1
-host-shell duo both
+duo set-tablet-mapping
+sleep 1
+duo top
+echo \#\!/bin/bash | sudo tee /usr/bin/duo
+echo host-shell duo \"\$\@\" | sudo tee -a /usr/bin/duo
+sudo chmod a+x /usr/bin/duo
