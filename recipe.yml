@@ -114,6 +114,13 @@ stages:
   #   - ln -s /etc/howdy /usr/local/etc/howdy
   #   - echo "auth sufficient /lib/security/howdy/pam/pam_howdy.so" >> /etc/pam.d/common-auth
 
+  - name: bibata-cursor
+    type: shell
+    commands:
+    - mkdir -p /usr/share/icons/bibata
+    - wget https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Classic.tar.xz -O /tmp/Bibata-Modern-Classic.tar.xz
+    - tar -xf /tmp/Bibata-Modern-Classic.tar.xz -C /usr/share/icons/bibata
+
   # Put your custom actions above this comment
 
   - name: set-image-name-abroot
