@@ -1,7 +1,10 @@
 plymouth.SetBackgroundColor(0, 0, 0);
 
 function show_message() {
-    plymouth.DisplayMessageOnMonitor("Please attach the keyboard", "eDP-2");
+    plymouth.SetMessageFunction(function() {
+        plymouth.DisplayMessageOnMonitor("Please attach the keyboard", "eDP-2");
+    });
 }
 
+// Wait for the encryption password prompt
 plymouth.OnPasswordPrompt(show_message);
