@@ -58,6 +58,9 @@ DialogClearsFirmwareBackground=false
 MessageBelowAnimation=true
 ThrobberFrameInterval=0.2
 
+[unlock]
+Message=Please enter your encryption password. The keyboard must be attached.
+
 [boot-up]
 UseEndAnimation=false
 UseFirmwareBackground=true
