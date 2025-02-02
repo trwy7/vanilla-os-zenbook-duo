@@ -80,8 +80,6 @@ stages:
     - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/refs/heads/main/duo -o /usr/bin/duo
     - chmod a+rx /usr/bin/duo
     - systemctl enable batterylimit.service # Limits the battery
-    - systemctl enable screenmanager.service # Toggles the display on keyboard attach
-    - systemctl enable rotationmonitor.service # Rotates the display
 
   - name: asus-pen-2
     type: shell
