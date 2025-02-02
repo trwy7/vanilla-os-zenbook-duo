@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Duo Monitor on off
+Comment=Enables the second screen when the keyboard is detached
+Exec=duo watch-displays
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

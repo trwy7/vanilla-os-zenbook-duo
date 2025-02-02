@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Duo Watch Rotation
+Comment=Run duo watch-rotation at gnome login
+Exec=duo watch-rotation
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

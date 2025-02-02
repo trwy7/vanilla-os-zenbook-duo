@@ -14,4 +14,6 @@ if [ -f /etc/duoconfig/batterylimit ]; then
     limit=$(cat /etc/duoconfig/batterylimit)
     # Set the battery limit
     duo bat-limit $limit
+else
+    echo 100 > /etc/duoconfig/batterylimit
 fi
