@@ -79,6 +79,7 @@ stages:
     - apt install python3 python3-usb iio-sensor-proxy usbutils inotify-tools -y # Dependancies
     - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/refs/heads/main/duo -o /usr/bin/duo
     - chmod a+rx /usr/bin/duo
+    - sed -i 's/card1-eDP-2-backlight/card0-eDP-2-backlight/' /usr/bin/duo # Fix the backlight path, make an issue if this is wrong.
     - systemctl enable batterylimit.service # Limits the battery
 
   - name: asus-pen-2
