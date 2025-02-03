@@ -1,0 +1,8 @@
+[Unit]
+Description=Zenbook Duo Brightness sync service
+
+[Service]
+ExecStart=duo watch-backlight
+
+[Install]
+WantedBy=multi-user.target
