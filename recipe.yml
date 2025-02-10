@@ -86,7 +86,7 @@ stages:
   - name: asus-pen-2
     type: shell
     commands:
-    - apt install git -y
+    - apt install git libevdev2 python3-libevdev -y
     - git clone https://github.com/asus-linux-drivers/asus-stylus-driver /tmp/asus-stylus-driver
     - cd /tmp/asus-stylus-driver
     - sed -i 's/systemctl daemon-reload/echo not reloading/' install.sh
