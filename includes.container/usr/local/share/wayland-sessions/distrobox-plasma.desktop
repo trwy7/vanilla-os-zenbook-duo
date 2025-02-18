@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=/usr/local/bin/distrobox-enter plasma -- /usr/libexec/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
+DesktopNames=KDE
+Name=Plasma on Wayland (plasma distrobox) (test)
+X-KDE-PluginInfo-Version=5.23.3
