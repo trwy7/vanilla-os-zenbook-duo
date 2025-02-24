@@ -118,7 +118,7 @@ stages:
   #   - ln -s /etc/howdy /usr/local/etc/howdy
   #   - echo "auth sufficient /lib/security/howdy/pam/pam_howdy.so" >> /etc/pam.d/common-auth
 
-  - name: bibata-cursorcurl: (23) client returned ERROR on write of 1369 bytes
+  - name: bibata-cursor
     type: shell
     commands:
     - mkdir -p /usr/share/icons/bibata
