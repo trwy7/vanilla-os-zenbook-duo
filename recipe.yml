@@ -83,6 +83,7 @@ stages:
     - sed -i 's/card1-eDP-2-backlight/card0-eDP-2-backlight/' /usr/bin/duo # Fix the backlight path, make an issue if this is wrong.
     - systemctl enable batterylimit.service # Limits the battery
     - systemctl enable brightnesssync.service # Syncs the display brightness
+    - mkdir -p /.system/usr/bin
     - cp /tmp/duotools/bk.py /.system/usr/bin/bk.py # Copy bk.py
     - chmod a+rx /.system/usr/bin/bk.py # Make bk.py executable
     
