@@ -76,22 +76,21 @@ stages:
   - name: zenbook-duo-2024-tools
     type: shell
     commands:
-    - apt install python3 python3-usb iio-sensor-proxy usbutils inotify-tools -y # Dependancies
-    - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/refs/heads/main/duo -o /usr/bin/duo
+    - apt install python3 python3-usb iio-sensor-proxy usbutils inotify-tools git -y # Dependancies
+    - git clone https://github.com/alesya-h/zenbook-duo-2024-ux8406ma-linux /tmp/duotools
+    - cp /tmp/duotools/duo /usr/bin/duo
     - chmod a+rx /usr/bin/duo
     - sed -i 's/card1-eDP-2-backlight/card0-eDP-2-backlight/' /usr/bin/duo # Fix the backlight path, make an issue if this is wrong.
     - systemctl enable batterylimit.service # Limits the battery
     - systemctl enable brightnesssync.service # Syncs the display brightness
-    - apt install python3-pip -y # Install pip3
-    - python3 -m pip install pyusb --break-system-packages # Needed for keyboard backlight
-    - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/main/bk.py -o /.system/usr/bin/bk.py # Download bk.py
+    - cp /tmp/duotools/bk.py /.system/usr/bin/bk.py # Copy bk.py
     - chmod a+rx /.system/usr/bin/bk.py # Make bk.py executable
     
 
   - name: asus-pen-2
     type: shell
     commands:
-    - apt install git libevdev2 python3-libevdev -y
+    - apt install libevdev2 python3-libevdev -y
     - git clone https://github.com/asus-linux-drivers/asus-stylus-driver /tmp/asus-stylus-driver
     - cd /tmp/asus-stylus-driver
     - sed -i 's/systemctl daemon-reload/echo not reloading/' install.sh
@@ -119,7 +118,7 @@ stages:
   #   - ln -s /etc/howdy /usr/local/etc/howdy
   #   - echo "auth sufficient /lib/security/howdy/pam/pam_howdy.so" >> /etc/pam.d/common-auth
 
-  - name: bibata-cursor
+  - name: bibata-cursorcurl: (23) client returned ERROR on write of 1369 bytes
     type: shell
     commands:
     - mkdir -p /usr/share/icons/bibata
