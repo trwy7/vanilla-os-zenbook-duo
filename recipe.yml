@@ -84,6 +84,9 @@ stages:
     - systemctl enable brightnesssync.service # Syncs the display brightness
     - apt install python3-pip -y # Install pip3
     - python3 -m pip install pyusb --break-system-packages # Needed for keyboard backlight
+    - curl -fsSL https://raw.githubusercontent.com/alesya-h/zenbook-duo-2024-ux8406ma-linux/main/bk.py -o /.system/usr/bin/bk.py # Download bk.py
+    - chmod a+rx /.system/usr/bin/bk.py # Make bk.py executable
+    
 
   - name: asus-pen-2
     type: shell
