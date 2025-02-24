@@ -83,7 +83,7 @@ stages:
     - systemctl enable batterylimit.service # Limits the battery
     - systemctl enable brightnesssync.service # Syncs the display brightness
     - apt install python3-pip -y # Install pip3
-    - python -m pip install pyusb --break-system-packages # Needed for keyboard backlight
+    - python3 -m pip install pyusb --break-system-packages # Needed for keyboard backlight
 
   - name: asus-pen-2
     type: shell
