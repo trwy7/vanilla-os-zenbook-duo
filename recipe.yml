@@ -82,6 +82,7 @@ stages:
     - sed -i 's/card1-eDP-2-backlight/card0-eDP-2-backlight/' /usr/bin/duo # Fix the backlight path, make an issue if this is wrong.
     - systemctl enable batterylimit.service # Limits the battery
     - systemctl enable brightnesssync.service # Syncs the display brightness
+    - pip3 install pyusb --break-system-packages # Needed for keyboard backlight
 
   - name: asus-pen-2
     type: shell
