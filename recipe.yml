@@ -30,12 +30,15 @@ stages:
   #     - vim
 
 
-  - name: enable tailscale # Sample module demonstrating the Shell module with custom commands
+  - name: install tailscale # Install tailscale
     type: shell
     commands: 
-    # This needs https://pkgs.tailscale.com/stable/tailscale_1.78.1_amd64.tgz to be extracted to /home/vosapps/tailscalebin
-    # TODO: Dont do that
-    - systemctl enable tailscale.service
+    - apt install curl -y # Just in case
+    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+    - sudo apt-get update
+    - sudo apt-get install tailscale
+
 
   - name: asus-wmi-screenpad
     type: shell
