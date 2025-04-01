@@ -33,11 +33,11 @@ stages:
   - name: install tailscale # Install tailscale
     type: shell
     commands: 
-    - curl -fsSLo /tmp/install-tailscale-sh https://tailscale.com/install.sh
-    - chmod +x /tmp/install-tailscale-sh
+    - curl -fsSLo /tmp/install-tailscale.sh https://tailscale.com/install.sh
+    - chmod +x /tmp/install-tailscale.sh
     - cd /tmp
-    - sed -i 's/\. \/etc\/os-release/. \/etc\/os-release\nexport ID=debian/' install-tailscale-sh
-    - ./install-tailscale-sh
+    - sed -i 's/\. \/etc\/os-release/. \/etc\/os-release\nexport ID=debian\nexport VERSION_CODENAME=12/' install-tailscale.sh
+    - ./install-tailscale.sh
 
 
   - name: asus-wmi-screenpad
