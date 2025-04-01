@@ -33,11 +33,11 @@ stages:
   - name: install tailscale # Install tailscale
     type: shell
     commands: 
-    - curl -fsSLo /tmp/install-tailscale.sh https://tailscale.com/install.sh
-    - chmod +x /tmp/install-tailscale.sh
-    - cd /tmp
-    - sed -i 's/\. \/etc\/os-release/. \/etc\/os-release\nexport ID=debian\nexport VERSION_CODENAME=bookworm\nVERSION_ID=12\nVERSION=\"12 (bookworm)\"/' install-tailscale.sh
-    - ./install-tailscale.sh
+    - apt install curl -y # Just in case
+    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+    - curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
+    - apt-get update --allow-insecure-repositories
+    - apt-get install tailscale --allow-insecure-repositories
 
 
   - name: asus-wmi-screenpad
