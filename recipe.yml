@@ -36,7 +36,7 @@ stages:
     - curl -fsSLo /tmp/install-tailscale.sh https://tailscale.com/install.sh
     - chmod +x /tmp/install-tailscale.sh
     - cd /tmp
-    - sed -i 's/\. \/etc\/os-release/. \/etc\/os-release\nexport ID=debian\nexport VERSION_CODENAME=12/' install-tailscale.sh
+    - sed -i 's/\. \/etc\/os-release/. \/etc\/os-release\nexport ID=debian\nexport VERSION_CODENAME=bookworm\nVERSION_ID=12\nVERSION=\"12 (bookworm)\"/' install-tailscale.sh
     - ./install-tailscale.sh
 
 
