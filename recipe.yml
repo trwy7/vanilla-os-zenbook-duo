@@ -122,6 +122,13 @@ stages:
   #   - ln -s /etc/howdy /usr/local/etc/howdy
   #   - echo "auth sufficient /lib/security/howdy/pam/pam_howdy.so" >> /etc/pam.d/common-auth
 
+  - name: howdy-deb
+    type: shell
+    commands:
+      - cd /tmp
+      - wget https://github.com/boltgolt/howdy/releases/download/v2.6.1/howdy_2.6.1.deb
+      - sudo apt install -y ./howdy_2.6.1.deb
+    
   - name: bibata-cursor
     type: shell
     commands:
