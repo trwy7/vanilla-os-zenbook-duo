@@ -59,12 +59,11 @@ Plymouth.SetDisplayNormalFunction(fun () {
 
 Plymouth.SetDisplayPasswordFunction(fun (prompt, bullets) {
     # Create password prompt display
-    if (prompt) {
-        prompt_sprite = Sprite();
-        prompt_image = Image.Text(prompt, 1, 1, 1);
-        prompt_sprite.SetImage(prompt_image);
-        prompt_sprite.SetPosition(Window.GetWidth() / 2 - prompt_image.GetWidth() / 2,
-                                 Window.GetHeight() / 2 + 100, 10001);
+    prompt_sprite = Sprite();
+    prompt_image = Image.Text("Enter your password", 1, 1, 1);
+    prompt_sprite.SetImage(prompt_image);
+    prompt_sprite.SetPosition(Window.GetWidth() / 2 - prompt_image.GetWidth() / 2,
+                             Window.GetHeight() / 2 + 100, 10001);
         
         # Show bullets for entered characters
         if (bullets) {
@@ -82,12 +81,27 @@ Plymouth.SetDisplayPasswordFunction(fun (prompt, bullets) {
 });
 
 Plymouth.SetUpdateStatusFunction(fun (status) {
-    # Display boot status messages
+    # Display boot status messages and recent TTY logs
     if (status) {
         status_sprite = Sprite();
         status_image = Image.Text(status, 0.8, 0.8, 0.8);
         status_sprite.SetImage(status_image);
         status_sprite.SetPosition(Window.GetWidth() / 2 - status_image.GetWidth() / 2,
                                  Window.GetHeight() - 50, 10001);
+    }
+    
+    # Show recent TTY log messages
+    log_lines = Plymouth.GetBootLog();
+    if (log_lines) {
+        # Display last few log lines
+        max_lines = 3;
+        start_line = Math.Max(0, log_lines.length - max_lines);
+        
+        for (i = start_line; i < log_lines.length; i++) {
+            line_sprite = Sprite();
+            line_image = Image.Text(log_lines[i], 0.6, 0.6, 0.6);
+            line_sprite.SetImage(line_image);
+            line_sprite.SetPosition(10, Window.GetHeight() - 120 + (i - start_line) * 20, 10001);
+        }
     }
 });
