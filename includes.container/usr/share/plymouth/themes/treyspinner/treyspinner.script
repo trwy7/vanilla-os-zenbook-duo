@@ -8,3 +8,86 @@ function show_message() {
 
 // Wait for the encryption password prompt
 plymouth.OnPasswordPrompt(show_message);
+
+# Plymouth theme script for treyspinner with slowed animation
+# Animation speed reduced by half for better visibility
+
+Window.GetMaxWidth = fun () {
+    return Window.GetWidth();
+};
+
+Window.GetMaxHeight = fun () {
+    return Window.GetHeight();
+};
+
+# Slow down the animation by doubling frame delays
+frame_delay = 0.1;  # Increased from typical 0.05
+animation_speed = 0.5;  # Half speed multiplier
+
+# Spinner setup
+spinner_image = Image("spinner.png");
+spinner_sprite = Sprite(spinner_image);
+spinner_sprite.SetPosition(Window.GetWidth() / 2 - spinner_image.GetWidth() / 2, 
+                          Window.GetHeight() / 2 - spinner_image.GetHeight() / 2, 10000);
+
+# Progress tracking
+progress = 0;
+frame_count = 0;
+
+# Main animation function with reduced speed
+fun refresh_callback() {
+    frame_count++;
+    
+    # Rotate spinner at half speed
+    angle = (frame_count * animation_speed) % 360;
+    spinner_sprite.SetImage(spinner_image.Rotate(Math.DegToRad(angle)));
+    
+    # Update progress bar if present
+    if (Plymouth.GetMode() == "boot") {
+        progress = Plymouth.GetBootProgress();
+    }
+}
+
+# Set refresh rate to match slowed animation
+Plymouth.SetRefreshRate(10);  # Reduced from typical 20 FPS
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# Handle display configuration
+Plymouth.SetDisplayNormalFunction(fun () {
+    spinner_sprite.SetOpacity(1);
+});
+
+Plymouth.SetDisplayPasswordFunction(fun (prompt, bullets) {
+    # Create password prompt display
+    if (prompt) {
+        prompt_sprite = Sprite();
+        prompt_image = Image.Text(prompt, 1, 1, 1);
+        prompt_sprite.SetImage(prompt_image);
+        prompt_sprite.SetPosition(Window.GetWidth() / 2 - prompt_image.GetWidth() / 2,
+                                 Window.GetHeight() / 2 + 100, 10001);
+        
+        # Show bullets for entered characters
+        if (bullets) {
+            bullet_text = "";
+            for (i = 0; i < bullets; i++) {
+                bullet_text += "•";
+            }
+            bullet_sprite = Sprite();
+            bullet_image = Image.Text(bullet_text, 1, 1, 1);
+            bullet_sprite.SetImage(bullet_image);
+            bullet_sprite.SetPosition(Window.GetWidth() / 2 - bullet_image.GetWidth() / 2,
+                                     Window.GetHeight() / 2 + 130, 10001);
+        }
+    }
+});
+
+Plymouth.SetUpdateStatusFunction(fun (status) {
+    # Display boot status messages
+    if (status) {
+        status_sprite = Sprite();
+        status_image = Image.Text(status, 0.8, 0.8, 0.8);
+        status_sprite.SetImage(status_image);
+        status_sprite.SetPosition(Window.GetWidth() / 2 - status_image.GetWidth() / 2,
+                                 Window.GetHeight() - 50, 10001);
+    }
+});
