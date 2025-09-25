@@ -38,6 +38,7 @@ flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[
 flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
 
 progress = 0;
+opacity = 0;
 
 fun refresh_callback ()
   {
@@ -47,6 +48,10 @@ fun refresh_callback ()
     }
     if (state.status == "pause") {
       flyingman_sprite.SetImage(pause_image);
+    }
+    if (opacity < 1.0) {
+      opacity = opacity + 0.05;
+      plymouth.SetOpacity(flyingman_sprite, opacity);
     }
   }
   
