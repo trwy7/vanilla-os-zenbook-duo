@@ -25,6 +25,13 @@ bullet.image = Image.Text("*", 1, 1, 1);
 state.status = "play";
 state.time = 0.0;
 
+// static text box 10% from top
+thello = null;
+thello.image = Image.Text("Hello, world", 1, 1, 1);
+thello.sprite = Sprite(hello.image);
+thello.sprite.SetX(screen.half.w - hello.image.GetWidth() / 2);
+thello.sprite.SetY(screen.h * 0.10);
+
 //--------------------------------- Refresh (Logo animation) --------------------------
 
 # cycle through all images
@@ -32,11 +39,9 @@ for (i = 0; i < 42; i++)
   flyingman_image[i] = Image("progress-" + i + ".png");
 flyingman_sprite = Sprite();
 
-# set sprite scale to half size and image position using scaled dimensions
-scale = 0.5;
-flyingman_sprite.SetScale(scale);
-flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() * scale / 2)); # Place images in the center (scaled)
-flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() * scale / 2));
+# set image position
+flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() / 2)); # Place images in the center
+flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
 
 progress = 0;
 
@@ -108,3 +113,7 @@ fun MessageCallback(text) {
 }
 Plymouth.SetMessageFunction(MessageCallback);
 
+// Update thello on message
+fun do_message(text) {
+  thello.image = Image.Text(text, 1, 1, 1);
+}
