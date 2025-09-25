@@ -44,7 +44,8 @@ fun refresh_callback ()
     if (state.status == "play") {
       flyingman_sprite.SetImage(flyingman_image[Math.Int(progress / 2) % 42]);
       progress++;
-    } else {
+    }
+    if (state.status == "pause") {
       flyingman_sprite.SetImage(pause_image);
     }
   }
@@ -64,6 +65,8 @@ fun DisplayQuestionCallback(prompt, entry) {
     question.sprite.SetX(screen.half.w - question.image.GetWidth() / 2);
     question.sprite.SetY(screen.h - 4 * question.image.GetHeight());
 
+    flyingman_sprite.SetImage(pause_image);
+
     answer.image = Image.Text(entry, 1, 1, 1);
     answer.sprite = Sprite(answer.image);
     answer.sprite.SetX(screen.half.w - answer.image.GetWidth() / 2);
@@ -81,6 +84,8 @@ fun DisplayPasswordCallback(nil, bulletCount) {
     prompt.sprite = Sprite(prompt.image);
     prompt.sprite.SetX(screen.half.w - prompt.image.GetWidth() / 2);
     prompt.sprite.SetY(screen.h - 4 * prompt.image.GetHeight());
+
+    flyingman_sprite.SetImage(pause_image);
 
     // Clear all bullets (user might hit backspace)
     bullets = null;
@@ -100,6 +105,7 @@ fun DisplayNormalCallback() {
     message = null;
     question = null;
     answer = null;
+    flyingman_sprite.SetImage(flyingman_image[Math.Int(progress / 2) % 42]);
 }
 Plymouth.SetDisplayNormalFunction(DisplayNormalCallback);
 
