@@ -32,9 +32,11 @@ for (i = 0; i < 42; i++)
   flyingman_image[i] = Image("progress-" + i + ".png");
 flyingman_sprite = Sprite();
 
-# set image position
-flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() / 2)); # Place images in the center
-flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
+# set sprite scale to half size and image position using scaled dimensions
+scale = 0.5;
+flyingman_sprite.SetScale(scale);
+flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() * scale / 2)); # Place images in the center (scaled)
+flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() * scale / 2));
 
 progress = 0;
 
