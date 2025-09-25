@@ -44,6 +44,8 @@ fun refresh_callback ()
     if (state.status == "play") {
       flyingman_sprite.SetImage(flyingman_image[Math.Int(progress / 2) % 42]);
       progress++;
+    } else {
+      flyingman_sprite.SetImage(pause_image);
     }
   }
   
