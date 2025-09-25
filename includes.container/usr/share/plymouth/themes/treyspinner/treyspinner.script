@@ -1,107 +1,108 @@
-plymouth.SetBackgroundColor(0, 0, 0);
+## Author : Aditya Shakya (adi1090x)
+## Mail : adi1090x@gmail.com
+## Github : @adi1090x
+## Reddit : @adi1090x
 
-function show_message() {
-    plymouth.SetMessageFunction(function() {
-        plymouth.DisplayMessageOnMonitor("Please attach the keyboard", "eDP-2");
-    });
-}
+// Screen size
+screen.w = Window.GetWidth(0);
+screen.h = Window.GetHeight(0);
+screen.half.w = Window.GetWidth(0) / 2;
+screen.half.h = Window.GetHeight(0) / 2;
 
-// Wait for the encryption password prompt
-plymouth.OnPasswordPrompt(show_message);
+// Question prompt
+question = null;
+answer = null;
 
-# Plymouth theme script for treyspinner with slowed animation
-# Animation speed reduced by half for better visibility
+// Message
+message = null;
 
-Window.GetMaxWidth = fun () {
-    return Window.GetWidth();
-};
+// Password prompt
+bullets = null;
+prompt = null;
+bullet.image = Image.Text("*", 1, 1, 1);
 
-Window.GetMaxHeight = fun () {
-    return Window.GetHeight();
-};
+// Flow
+state.status = "play";
+state.time = 0.0;
 
-# Slow down the animation by doubling frame delays
-frame_delay = 0.1;  # Increased from typical 0.05
-animation_speed = 0.5;  # Half speed multiplier
+//--------------------------------- Refresh (Logo animation) --------------------------
 
-# Spinner setup
-spinner_image = Image("spinner.png");
-spinner_sprite = Sprite(spinner_image);
-spinner_sprite.SetPosition(Window.GetWidth() / 2 - spinner_image.GetWidth() / 2, 
-                          Window.GetHeight() / 2 - spinner_image.GetHeight() / 2, 10000);
+# cycle through all images
+for (i = 0; i < 64; i++)
+  flyingman_image[i] = Image("progress-" + i + ".png");
+flyingman_sprite = Sprite();
 
-# Progress tracking
+# set image position
+flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() / 2)); # Place images in the center
+flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
+
 progress = 0;
-frame_count = 0;
 
-# Main animation function with reduced speed
-fun refresh_callback() {
-    frame_count++;
-    
-    # Rotate spinner at half speed
-    angle = (frame_count * animation_speed) % 360;
-    spinner_sprite.SetImage(spinner_image.Rotate(Math.DegToRad(angle)));
-    
-    # Update progress bar if present
-    if (Plymouth.GetMode() == "boot") {
-        progress = Plymouth.GetBootProgress();
+fun refresh_callback ()
+  {
+    flyingman_sprite.SetImage(flyingman_image[Math.Int(progress / 2) % 64]);
+    progress++;
+  }
+  
+Plymouth.SetRefreshFunction (refresh_callback);
+
+//------------------------------------- Password prompt -------------------------------
+fun DisplayQuestionCallback(prompt, entry) {
+    question = null;
+    answer = null;
+
+    if (entry == "")
+        entry = "<answer>";
+
+    question.image = Image.Text(prompt, 1, 1, 1);
+    question.sprite = Sprite(question.image);
+    question.sprite.SetX(screen.half.w - question.image.GetWidth() / 2);
+    question.sprite.SetY(screen.h - 4 * question.image.GetHeight());
+
+    answer.image = Image.Text(entry, 1, 1, 1);
+    answer.sprite = Sprite(answer.image);
+    answer.sprite.SetX(screen.half.w - answer.image.GetWidth() / 2);
+    answer.sprite.SetY(screen.h - 2 * answer.image.GetHeight());
+}
+Plymouth.SetDisplayQuestionFunction(DisplayQuestionCallback);
+
+//------------------------------------- Password prompt -------------------------------
+fun DisplayPasswordCallback(nil, bulletCount) {
+    state.status = "pause";
+    totalWidth = bulletCount * bullet.image.GetWidth();
+    startPos = screen.half.w - totalWidth / 2;
+
+    prompt.image = Image.Text("Enter Password", 1, 1, 1);
+    prompt.sprite = Sprite(prompt.image);
+    prompt.sprite.SetX(screen.half.w - prompt.image.GetWidth() / 2);
+    prompt.sprite.SetY(screen.h - 4 * prompt.image.GetHeight());
+
+    // Clear all bullets (user might hit backspace)
+    bullets = null;
+    for (i = 0; i < bulletCount; i++) {
+        bullets[i].sprite = Sprite(bullet.image);
+        bullets[i].sprite.SetX(startPos + i * bullet.image.GetWidth());
+        bullets[i].sprite.SetY(screen.h - 2 * bullet.image.GetHeight());
     }
 }
+Plymouth.SetDisplayPasswordFunction(DisplayPasswordCallback);
 
-# Set refresh rate to match slowed animation
-Plymouth.SetRefreshRate(10);  # Reduced from typical 20 FPS
-Plymouth.SetRefreshFunction(refresh_callback);
+//--------------------------- Normal display (unset all text) ----------------------
+fun DisplayNormalCallback() {
+    state.status = "play";
+    bullets = null;
+    prompt = null;
+    message = null;
+    question = null;
+    answer = null;
+}
+Plymouth.SetDisplayNormalFunction(DisplayNormalCallback);
 
-# Handle display configuration
-Plymouth.SetDisplayNormalFunction(fun () {
-    spinner_sprite.SetOpacity(1);
-});
+//----------------------------------------- Message --------------------------------
+fun MessageCallback(text) {
+    message.image = Image.Text(text, 1, 1, 1);
+    message.sprite = Sprite(message.image);
+    message.sprite.SetPosition(screen.half.w - message.image.GetWidth() / 2, message.image.GetHeight());
+}
+Plymouth.SetMessageFunction(MessageCallback);
 
-Plymouth.SetDisplayPasswordFunction(fun (prompt, bullets) {
-    # Create password prompt display
-    prompt_sprite = Sprite();
-    prompt_image = Image.Text("Enter your password", 1, 1, 1);
-    prompt_sprite.SetImage(prompt_image);
-    prompt_sprite.SetPosition(Window.GetWidth() / 2 - prompt_image.GetWidth() / 2,
-                             Window.GetHeight() / 2 + 100, 10001);
-        
-        # Show bullets for entered characters
-        if (bullets) {
-            bullet_text = "";
-            for (i = 0; i < bullets; i++) {
-                bullet_text += "•";
-            }
-            bullet_sprite = Sprite();
-            bullet_image = Image.Text(bullet_text, 1, 1, 1);
-            bullet_sprite.SetImage(bullet_image);
-            bullet_sprite.SetPosition(Window.GetWidth() / 2 - bullet_image.GetWidth() / 2,
-                                     Window.GetHeight() / 2 + 130, 10001);
-        }
-    }
-});
-
-Plymouth.SetUpdateStatusFunction(fun (status) {
-    # Display boot status messages and recent TTY logs
-    if (status) {
-        status_sprite = Sprite();
-        status_image = Image.Text(status, 0.8, 0.8, 0.8);
-        status_sprite.SetImage(status_image);
-        status_sprite.SetPosition(Window.GetWidth() / 2 - status_image.GetWidth() / 2,
-                                 Window.GetHeight() - 50, 10001);
-    }
-    
-    # Show recent TTY log messages
-    log_lines = Plymouth.GetBootLog();
-    if (log_lines) {
-        # Display last few log lines
-        max_lines = 3;
-        start_line = Math.Max(0, log_lines.length - max_lines);
-        
-        for (i = start_line; i < log_lines.length; i++) {
-            line_sprite = Sprite();
-            line_image = Image.Text(log_lines[i], 0.6, 0.6, 0.6);
-            line_sprite.SetImage(line_image);
-            line_sprite.SetPosition(10, Window.GetHeight() - 120 + (i - start_line) * 20, 10001);
-        }
-    }
-});

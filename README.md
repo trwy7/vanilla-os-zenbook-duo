@@ -1,3 +1,5 @@
+# Don't use this
+This code is terrible and uses a few proprietary deb files i built myself, unless you really trust me, create your own image
 # Custom Vib Image
 
 This template repository is a starting point for creating custom [Vib images](https://github.com/Vanilla-OS/Vib) on top of the [official Vanilla OS images](https://images.vanillaos.org) like [desktop image](https://github.com/Vanilla-OS/desktop-image). It contains a basic recipe and an example module to get you started.
