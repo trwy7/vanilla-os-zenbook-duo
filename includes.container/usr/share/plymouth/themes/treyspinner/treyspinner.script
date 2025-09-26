@@ -124,8 +124,8 @@ fun MessageCallback(text) {
 Plymouth.SetMessageFunction(MessageCallback);
 
 //------------------------------- Boot progress --------------------------------
-fun ProgressCallback(fraction) {
-    boot_progress_text = Image.Text("Booting... " + Math.Int(fraction * 100) + "%", 1, 1, 1);
+fun ProgressCallback(time, fraction) {
+    boot_progress_text = Image.Text("Booting... " + Math.Int(fraction * 100) + "%" + " for " + Math.Int(time) + "s", 1, 1, 1);
     boot_progress_sprite.SetImage(boot_progress_text);
     boot_progress_sprite.SetX(screen.half.w - boot_progress_text.GetWidth() / 2);
     boot_progress_sprite.SetY(screen.half.h - boot_progress_text.GetHeight() / 2);
