@@ -37,12 +37,6 @@ flyingman_sprite = Sprite();
 flyingman_sprite.SetX(Window.GetX() + (Window.GetWidth(0) / 2 - flyingman_image[0].GetWidth() / 2)); # Place images in the center
 flyingman_sprite.SetY(Window.GetY() + (Window.GetHeight(0) / 2 - flyingman_image[0].GetHeight() / 2));
 
-// Boot progress text
-boot_progress_text = Image.Text("Booting...", 1, 1, 1);
-boot_progress_sprite = Sprite(boot_progress_text);
-boot_progress_sprite.SetX(screen.half.w - boot_progress_text.GetWidth() / 2);
-boot_progress_sprite.SetY(screen.half.h - boot_progress_text.GetHeight() / 2);
-
 progress = 0;
 
 fun refresh_callback ()
@@ -122,12 +116,3 @@ fun MessageCallback(text) {
     message.sprite.SetPosition(screen.half.w - message.image.GetWidth() / 2, message.image.GetHeight());
 }
 Plymouth.SetMessageFunction(MessageCallback);
-
-//------------------------------- Boot progress --------------------------------
-fun ProgressCallback(time, fraction) {
-    boot_progress_text = Image.Text("Booting... " + Math.Int(fraction * 100) + "%" + " for " + Math.Int(time) + "s", 1, 1, 1);
-    boot_progress_sprite.SetImage(boot_progress_text);
-    boot_progress_sprite.SetX(screen.half.w - boot_progress_text.GetWidth() / 2);
-    boot_progress_sprite.SetY(screen.half.h - boot_progress_text.GetHeight() / 2);
-}
-Plymouth.SetBootProgressFunction(ProgressCallback);
